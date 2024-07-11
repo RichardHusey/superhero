@@ -1,4 +1,4 @@
-export const SUPERHEROIDS = [236, 476, 339, 191, 197, 198, 1, 2, 3, 4, 5, 6];
+export const SUPERHEROIDS = [236, 476, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6];
 export const QUESTIONS = [
   {
     question: "What is your favourite eye-color?",

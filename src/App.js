@@ -37,7 +37,7 @@ function App() {
               path="search"
               element={<Search heros={heros} setQuery={handleQuery} />}
             />
-            <Route path="detail" element={<Profile />} />
+            <Route path="detail" element={<Profile heros={heros} />} />
             <Route path="*" element={<Error />} />
             <Route />
           </Route>

@@ -1,9 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { QUESTIONS } from "../mock";
 import Question from "../components/Question";
+import HeroCard from "../components/HeroCard";
 
-const Search = ({ setQuery }) => {
+const Search = ({ heros, setQuery }) => {
   return (
     <Box sx={{ pt: 5 }}>
       <Carousel
@@ -20,6 +21,13 @@ const Search = ({ setQuery }) => {
           ></Question>
         ))}
       </Carousel>
+      <Grid container spacing={2} sx={{ mt: 3 }}>
+        {heros.map((hero, index) => (
+          <Grid item key={index} xs={6} sm={4} md={3}>
+            <HeroCard hero={hero} />
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };
