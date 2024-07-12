@@ -1,8 +1,10 @@
-export const SUPERHEROIDS = [236, 476, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6];
+export const SUPERHEROIDS = [
+  236, 476, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 349, 350, 351,
+];
 export const QUESTIONS = [
   {
     question: "What is your favourite eye-color?",
-    options: ["red", "blue", "green", "brown"],
+    options: ["Red", "Blue", "Green", "Brown"],
     feature: "appearance",
     property: "eye-color",
   },

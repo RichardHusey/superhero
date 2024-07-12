@@ -5,10 +5,16 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const HeroCard = ({ hero }) => {
+const HeroCard = ({ hero, clickCard }) => {
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate("/detail");
+    clickCard(hero);
+  };
   return (
-    <Card>
+    <Card onClick={handleCardClick}>
       <CardActionArea>
         <CardMedia
           component="img"

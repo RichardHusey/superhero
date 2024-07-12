@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import { getSuperHeroDataById } from "./services";
 import { SUPERHEROIDS } from "./mock";
@@ -10,10 +10,15 @@ import Error from "./containers/Error";
 
 function App() {
   const [heros, setHeros] = useState([]);
-  const [queries, setQueries] = useState({});
+  const [filter, setFilter] = useState({});
+  const [selectedHero, seSelectedHero] = useState();
 
   const handleQuery = (query) => {
-    setQueries((prev) => ({ ...prev, ...query }));
+    setFilter((prev) => ({ ...prev, ...query }));
+  };
+  const handleClickCard = (hero) => {
+    console.log(hero);
+    seSelectedHero(hero);
   };
   const fetchSuperHeroData = async (ids) => {
     const promises = ids.map((id) => getSuperHeroDataById(id));
@@ -27,17 +32,49 @@ function App() {
   useEffect(() => {
     fetchSuperHeroData(SUPERHEROIDS);
   }, []);
+
+  const filteredHeros = useMemo(() => {
+    let filtered = heros;
+    const keyValuePairArr = Object.entries(filter).map((query) => {
+      let [feature, property] = query[0].split("_");
+      let value = query[1];
+      return { feature, property, value };
+    });
+    const filteredArr = heros.filter((hero) => {
+      return keyValuePairArr.every(
+        ({ feature, property, value }) => value === hero[feature][property]
+      );
+    });
+
+    return filteredArr;
+  }, [filter, heros]);
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Search />} />
+            <Route
+              index
+              element={
+                <Search
+                  heros={filteredHeros}
+                  setQuery={handleQuery}
+                  clickCard={handleClickCard}
+                />
+              }
+            />
             <Route
               path="search"
-              element={<Search heros={heros} setQuery={handleQuery} />}
+              element={
+                <Search
+                  heros={filteredHeros}
+                  setQuery={handleQuery}
+                  clickCard={handleClickCard}
+                />
+              }
             />
-            <Route path="detail" element={<Profile heros={heros} />} />
+            <Route path="detail" element={<Profile hero={selectedHero} />} />
             <Route path="*" element={<Error />} />
             <Route />
           </Route>
@@ -46,5 +83,5 @@ function App() {
     </div>
   );
 }
-
+//
 export default App;
