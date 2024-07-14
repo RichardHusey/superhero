@@ -17,7 +17,6 @@ function App() {
     setFilter((prev) => ({ ...prev, ...query }));
   };
   const handleClickCard = (hero) => {
-    console.log(hero);
     seSelectedHero(hero);
   };
   const fetchSuperHeroData = async (ids) => {

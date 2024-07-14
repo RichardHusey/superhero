@@ -4,17 +4,38 @@ import Appearance from "../components/Profile/Appearance";
 import PowerStats from "../components/Profile/PowerStats";
 import BioGraphy from "../components/Profile/BioGraphy";
 import WorkConnection from "../components/Profile/WorkConnection";
+import FeatureCard from "../components/Profile/FeatureCard";
 
 const Profile = ({ hero }) => {
   if (hero) {
-    const { name, powerstats, biography, apperance, work, connections, image } =
-      hero;
+    const {
+      name,
+      powerstats,
+      biography,
+      appearance,
+      work,
+      connections,
+      image,
+    } = hero;
     return (
-      <Box sx={{ mt: 3 }}>
+      <Box sx={{ mt: 3, gap: 2 }}>
         <ProfileHeader name={name} image={image}></ProfileHeader>
-        <Appearance apperance={apperance}></Appearance>
-        <PowerStats powerstats={powerstats}></PowerStats>
-        <BioGraphy biography={biography}></BioGraphy>
+        <FeatureCard
+          feature={"Appearance"}
+          properties={{ appearance }}
+        ></FeatureCard>
+        <FeatureCard
+          feature={"PowerStats"}
+          properties={{ powerstats }}
+        ></FeatureCard>
+        <FeatureCard
+          feature={"Biography"}
+          properties={{ biography }}
+        ></FeatureCard>
+        <FeatureCard
+          feature={"Appearance"}
+          properties={{ appearance }}
+        ></FeatureCard>
         <WorkConnection work={work} connections={connections}></WorkConnection>
       </Box>
     );

@@ -9,13 +9,19 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useState } from "react";
 
 const Question = ({ question, setQuery }) => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const [selectedOption, setSelectedOption] = useState("");
+
   const handleSelect = (e) => {
     const { feature, property } = question;
-    setQuery({ [`${feature}_${property}`]: e.target.value });
+    const value = e.target.value;
+    const newValue = selectedOption === value ? "" : value;
+    setSelectedOption(newValue);
+    setQuery({ [`${feature}_${property}`]: newValue });
   };
 
   return (
@@ -31,6 +37,7 @@ const Question = ({ question, setQuery }) => {
           row={isMdUp}
           aria-labelledby="demo-row-radio-buttons-group-label"
           name="row-radio-buttons-group"
+          value={selectedOption}
           onChange={handleSelect}
         >
           {question.options.map((option, index) => (
@@ -39,7 +46,13 @@ const Question = ({ question, setQuery }) => {
               value={option}
               control={<Radio />}
               label={option}
-            />
+            >
+              <Radio
+                value="a"
+                name="radio-buttons"
+                inputProps={{ "aria-label": "A" }}
+              />
+            </FormControlLabel>
           ))}
         </RadioGroup>
       </FormControl>
